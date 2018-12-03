@@ -23,7 +23,7 @@ function question1() {
 
       return (acc);
     }, 0);
-    console.log(answer);
+    console.log("Question 1:", answer);
     console.timeEnd('timer1');
   });
 }
@@ -50,7 +50,7 @@ function question2() {
       }
       return (acc);
     }, 0);
-    console.log(answer);
+    console.log("Question 2:", answer);
     console.timeEnd('timer2');
   });
 }

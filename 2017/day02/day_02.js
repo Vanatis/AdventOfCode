@@ -11,8 +11,8 @@ function question1() {
   lineReader.on('line', (line) => {
     const datastring = line.toString();
     const numberArray = line.split('\t');
-    var min = Math.min(...numberArray);
-    var max = Math.max(...numberArray);
+    let min = Math.min(...numberArray);
+    let max = Math.max(...numberArray);
     answer += (max - min);
   });
 
