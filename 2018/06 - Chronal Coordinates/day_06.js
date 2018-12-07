@@ -48,11 +48,34 @@ function question2() {
   const readStream = fs.createReadStream('./day_06_input.txt');
   const lineReader = rl.createInterface(readStream);
 
+  const inputCoordinates = [];
   lineReader.on('line', (line) => {
+    const coordinate = line.split(", ");
+    inputCoordinates.push({x: parseInt(coordinate[0]), y: parseInt(coordinate[1])});
   });
 
   lineReader.on('close', () => {
-    console.log('Question 2:');
+    //Get min/max of x and y value to determine which coordinates are not infinite
+    let minX = Number.MAX_SAFE_INTEGER;
+    let maxX = Number.MIN_SAFE_INTEGER;
+    let minY = Number.MAX_SAFE_INTEGER;
+    let maxY = Number.MIN_SAFE_INTEGER;
+
+    inputCoordinates.map((coordinate) => {
+      minX = minX < coordinate.x ? minX : coordinate.x;
+      minY = minY < coordinate.y ? minY : coordinate.y;
+      maxX = maxX > coordinate.x ? maxX : coordinate.x;
+      maxY = maxY > coordinate.y ? maxY : coordinate.y;
+    });
+
+    //For each point on the outside of the square grid, determine closest point.
+    //If a inputCoordinate is closest, that inputCoordinate has an infinite area
+    let finiteIndices = checkInfinites(inputCoordinates, minX, maxX, minY, maxY);
+
+    //Calculate the surfaceareas of each coordinate (including the infinite ones) on a limitid grid
+    let safeSurfaceAreas = calcSafeSurfaceAreas(inputCoordinates, 10000, minX, maxX, minY, maxY);
+
+    console.log('Question 2:', safeSurfaceAreas.length);
   });
 }
 
@@ -125,6 +148,7 @@ function checkInfinites(inputCoordinates, minX, maxX, minY, maxY) {
 function calcSurfaceAreas(inputCoordinates, minX, maxX, minY, maxY) {
   let surfaceAreas = [];
 
+  //Loop over the limited grid to calculate the closest inputCoordinate to every gridpoint
   for (let x = minX; x <= maxX; ++x) {
     for (let y = minY; y <= maxY; ++y) {
       let shortestDistance = Number.MAX_SAFE_INTEGER;
@@ -158,5 +182,26 @@ function calcSurfaceAreas(inputCoordinates, minX, maxX, minY, maxY) {
   return surfaceAreas;
 }
 
+function calcSafeSurfaceAreas(inputCoordinates, maxTotalDistance, minX, maxX, minY, maxY) {
+  let safeAreas = [];
+
+  //Loop over the limited grid to calculate totalDistance between all inputCoordinates
+  for (let x = minX; x <= maxX; ++x) {
+    for (let y = minY; y <= maxY; ++y) {
+
+      let totalDistance = 0;
+      for (let i = 0; i < inputCoordinates.length; ++i) {
+        totalDistance += calcManhattanDistance(inputCoordinates[i], {x: x, y: y});
+      }
+
+      if (totalDistance < maxTotalDistance) {
+        safeAreas.push({x: x, y: y});
+      }
+    }
+  }
+
+  return safeAreas;
+}
+
 question1();
-//question2();
+question2();

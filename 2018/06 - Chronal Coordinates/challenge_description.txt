@@ -1,63 +1,87 @@
---- Day 4: Repose Record ---
-You've sneaked into another supply closet - this time, it's across from the prototype suit manufacturing lab. You need to sneak inside and fix the issues with the suit, but there's a guard stationed outside the lab, so this is as close as you can safely get.
+--- Day 6: Chronal Coordinates ---
+The device on your wrist beeps several times, and once again you feel like you're falling.
 
-As you search the closet for anything that might help, you discover that you're not the first person to want to sneak in. Covering the walls, someone has spent an hour starting every midnight for the past few months secretly observing this guard post! They've been writing down the ID of the one guard on duty that night - the Elves seem to have decided that one guard was enough for the overnight shift - as well as when they fall asleep or wake up while at their post (your puzzle input).
+"Situation critical," the device announces. "Destination indeterminate. Chronal interference detected. Please specify new target coordinates."
 
-For example, consider the following records, which have already been organized into chronological order:
+The device then produces a list of coordinates (your puzzle input). Are they places it thinks are safe or dangerous? It recommends you check manual page 729. The Elves did not give you a manual.
 
-[1518-11-01 00:00] Guard #10 begins shift
-[1518-11-01 00:05] falls asleep
-[1518-11-01 00:25] wakes up
-[1518-11-01 00:30] falls asleep
-[1518-11-01 00:55] wakes up
-[1518-11-01 23:58] Guard #99 begins shift
-[1518-11-02 00:40] falls asleep
-[1518-11-02 00:50] wakes up
-[1518-11-03 00:05] Guard #10 begins shift
-[1518-11-03 00:24] falls asleep
-[1518-11-03 00:29] wakes up
-[1518-11-04 00:02] Guard #99 begins shift
-[1518-11-04 00:36] falls asleep
-[1518-11-04 00:46] wakes up
-[1518-11-05 00:03] Guard #99 begins shift
-[1518-11-05 00:45] falls asleep
-[1518-11-05 00:55] wakes up
-Timestamps are written using year-month-day hour:minute format. The guard falling asleep or waking up is always the one whose shift most recently started. Because all asleep/awake times are during the midnight hour (00:00 - 00:59), only the minute portion (00 - 59) is relevant for those events.
+If they're dangerous, maybe you can minimize the danger by finding the coordinate that gives the largest distance from the other points.
 
-Visually, these records show that the guards are asleep at these times:
+Using only the Manhattan distance, determine the area around each coordinate by counting the number of integer X,Y locations that are closest to that coordinate (and aren't tied in distance to any other coordinate).
 
-Date   ID   Minute
-            000000000011111111112222222222333333333344444444445555555555
-            012345678901234567890123456789012345678901234567890123456789
-11-01  #10  .....####################.....#########################.....
-11-02  #99  ........................................##########..........
-11-03  #10  ........................#####...............................
-11-04  #99  ....................................##########..............
-11-05  #99  .............................................##########.....
-The columns are Date, which shows the month-day portion of the relevant day; ID, which shows the guard on duty that day; and Minute, which shows the minutes during which the guard was asleep within the midnight hour. (The Minute column's header shows the minute's ten's digit in the first row and the one's digit in the second row.) Awake is shown as ., and asleep is shown as #.
+Your goal is to find the size of the largest area that isn't infinite. For example, consider the following list of coordinates:
 
-Note that guards count as asleep on the minute they fall asleep, and they count as awake on the minute they wake up. For example, because Guard #10 wakes up at 00:25 on 1518-11-01, minute 25 is marked as awake.
+1, 1
+1, 6
+8, 3
+3, 4
+5, 5
+8, 9
+If we name these coordinates A through F, we can draw them on a grid, putting 0,0 at the top left:
 
-If you can figure out the guard most likely to be asleep at a specific time, you might be able to trick that guard into working tonight so you can have the best chance of sneaking in. You have two strategies for choosing the best guard/minute combination.
+..........
+.A........
+..........
+........C.
+...D......
+.....E....
+.B........
+..........
+..........
+........F.
+This view is partial - the actual grid extends infinitely in all directions. Using the Manhattan distance, each location's closest coordinate can be determined, shown here in lowercase:
 
-Strategy 1: Find the guard that has the most minutes asleep. What minute does that guard spend asleep the most?
+aaaaa.cccc
+aAaaa.cccc
+aaaddecccc
+aadddeccCc
+..dDdeeccc
+bb.deEeecc
+bBb.eeee..
+bbb.eeefff
+bbb.eeffff
+bbb.ffffFf
+Locations shown as . are equally far from two or more coordinates, and so they don't count as being closest to any.
 
-In the example above, Guard #10 spent the most minutes asleep, a total of 50 minutes (20+25+5), while Guard #99 only slept for a total of 30 minutes (10+10+10). Guard #10 was asleep most during minute 24 (on two days, whereas any other minute the guard was asleep was only seen on one day).
+In this example, the areas of coordinates A, B, C, and F are infinite - while not shown here, their areas extend forever outside the visible grid. However, the areas of coordinates D and E are finite: D is closest to 9 locations, and E is closest to 17 (both including the coordinate's location itself). Therefore, in this example, the size of the largest area is 17.
 
-While this example listed the entries in chronological order, your entries are in the order you found them. You'll need to organize them before they can be analyzed.
+What is the size of the largest area that isn't infinite?
 
-What is the ID of the guard you chose multiplied by the minute you chose? (In the above example, the answer would be 10 * 24 = 240.)
-
-Your puzzle answer was 102688.
+Your puzzle answer was 5035.
 
 --- Part Two ---
-Strategy 2: Of all guards, which guard is most frequently asleep on the same minute?
+On the other hand, if the coordinates are safe, maybe the best you can do is try to find a region near as many coordinates as possible.
 
-In the example above, Guard #99 spent minute 45 asleep more than any other guard or minute - three times in total. (In all other cases, any guard spent any minute asleep at most twice.)
+For example, suppose you want the sum of the Manhattan distance to all of the coordinates to be less than 32. For each location, add up the distances to all of the given coordinates; if the total of those distances is less than 32, that location is within the desired region. Using the same coordinates as above, the resulting region looks like this:
 
-What is the ID of the guard you chose multiplied by the minute you chose? (In the above example, the answer would be 99 * 45 = 4455.)
+..........
+.A........
+..........
+...###..C.
+..#D###...
+..###E#...
+.B.###....
+..........
+..........
+........F.
+In particular, consider the highlighted location 4,3 located at the top middle of the region. Its calculation is as follows, where abs() is the absolute value function:
 
-Your puzzle answer was 56901.
+Distance to coordinate A: abs(4-1) + abs(3-1) =  5
+Distance to coordinate B: abs(4-1) + abs(3-6) =  6
+Distance to coordinate C: abs(4-8) + abs(3-3) =  4
+Distance to coordinate D: abs(4-3) + abs(3-4) =  2
+Distance to coordinate E: abs(4-5) + abs(3-5) =  3
+Distance to coordinate F: abs(4-8) + abs(3-9) = 10
+Total distance: 5 + 6 + 4 + 2 + 3 + 10 = 30
+Because the total distance to all coordinates (30) is less than 32, the location is within the region.
+
+This region, which also includes coordinates D and E, has a total size of 16.
+
+Your actual region will need to be much larger than this example, though, instead including all locations with a total distance of less than 10000.
+
+What is the size of the region containing all locations which have a total distance to all given coordinates of less than 10000?
+
+Your puzzle answer was 35294.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
