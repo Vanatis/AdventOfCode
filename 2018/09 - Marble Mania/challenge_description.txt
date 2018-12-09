@@ -1,77 +1,61 @@
---- Day 7: The Sum of Its Parts ---
-You find yourself standing on a snow-covered coastline; apparently, you landed a little off course. The region is too hilly to see the North Pole from here, but you do spot some Elves that seem to be trying to unpack something that washed ashore. It's quite cold out, so you decide to risk creating a paradox by asking them for directions.
+--- Day 9: Marble Mania ---
+You talk to the Elves while you wait for your navigation system to initialize. To pass the time, they introduce you to their favorite marble game.
 
-"Oh, are you the search party?" Somehow, you can understand whatever Elves from the year 1018 speak; you assume it's Ancient Nordic Elvish. Could the device on your wrist also be a translator? "Those clothes don't look very warm; take this." They hand you a heavy coat.
+The Elves play this game by taking turns arranging the marbles in a circle according to very particular rules. The marbles are numbered starting with 0 and increasing by 1 until every marble has a number.
 
-"We do need to find our way back to the North Pole, but we have higher priorities at the moment. You see, believe it or not, this box contains something that will solve all of Santa's transportation problems - at least, that's what it looks like from the pictures in the instructions." It doesn't seem like they can read whatever language it's in, but you can: "Sleigh kit. Some assembly required."
+First, the marble numbered 0 is placed in the circle. At this point, while it contains only a single marble, it is still a circle: the marble is both clockwise from itself and counter-clockwise from itself. This marble is designated the current marble.
 
-"'Sleigh'? What a wonderful name! You must help us assemble this 'sleigh' at once!" They start excitedly pulling more parts out of the box.
+Then, each Elf takes a turn placing the lowest-numbered remaining marble into the circle between the marbles that are 1 and 2 marbles clockwise of the current marble. (When the circle is large enough, this means that there is one marble between the marble that was just placed and the current marble.) The marble that was just placed then becomes the current marble.
 
-The instructions specify a series of steps and requirements about which steps must be finished before others can begin (your puzzle input). Each step is designated by a single letter. For example, suppose you have the following instructions:
+However, if the marble that is about to be placed has a number which is a multiple of 23, something entirely different happens. First, the current player keeps the marble they would have placed, adding it to their score. In addition, the marble 7 marbles counter-clockwise from the current marble is removed from the circle and also added to the current player's score. The marble located immediately clockwise of the marble that was removed becomes the new current marble.
 
-Step C must be finished before step A can begin.
-Step C must be finished before step F can begin.
-Step A must be finished before step B can begin.
-Step A must be finished before step D can begin.
-Step B must be finished before step E can begin.
-Step D must be finished before step E can begin.
-Step F must be finished before step E can begin.
-Visually, these requirements look like this:
+For example, suppose there are 9 players. After the marble with value 0 is placed in the middle, each player (shown in square brackets) takes a turn. The result of each of those turns would produce circles of marbles like this, where clockwise is to the right and the resulting current marble is in parentheses:
 
+[-] (0)
+[1]  0 (1)
+[2]  0 (2) 1
+[3]  0  2  1 (3)
+[4]  0 (4) 2  1  3
+[5]  0  4  2 (5) 1  3
+[6]  0  4  2  5  1 (6) 3
+[7]  0  4  2  5  1  6  3 (7)
+[8]  0 (8) 4  2  5  1  6  3  7
+[9]  0  8  4 (9) 2  5  1  6  3  7
+[1]  0  8  4  9  2(10) 5  1  6  3  7
+[2]  0  8  4  9  2 10  5(11) 1  6  3  7
+[3]  0  8  4  9  2 10  5 11  1(12) 6  3  7
+[4]  0  8  4  9  2 10  5 11  1 12  6(13) 3  7
+[5]  0  8  4  9  2 10  5 11  1 12  6 13  3(14) 7
+[6]  0  8  4  9  2 10  5 11  1 12  6 13  3 14  7(15)
+[7]  0(16) 8  4  9  2 10  5 11  1 12  6 13  3 14  7 15
+[8]  0 16  8(17) 4  9  2 10  5 11  1 12  6 13  3 14  7 15
+[9]  0 16  8 17  4(18) 9  2 10  5 11  1 12  6 13  3 14  7 15
+[1]  0 16  8 17  4 18  9(19) 2 10  5 11  1 12  6 13  3 14  7 15
+[2]  0 16  8 17  4 18  9 19  2(20)10  5 11  1 12  6 13  3 14  7 15
+[3]  0 16  8 17  4 18  9 19  2 20 10(21) 5 11  1 12  6 13  3 14  7 15
+[4]  0 16  8 17  4 18  9 19  2 20 10 21  5(22)11  1 12  6 13  3 14  7 15
+[5]  0 16  8 17  4 18(19) 2 20 10 21  5 22 11  1 12  6 13  3 14  7 15
+[6]  0 16  8 17  4 18 19  2(24)20 10 21  5 22 11  1 12  6 13  3 14  7 15
+[7]  0 16  8 17  4 18 19  2 24 20(25)10 21  5 22 11  1 12  6 13  3 14  7 15
+The goal is to be the player with the highest score after the last marble is used up. Assuming the example above ends after the marble numbered 25, the winning score is 23+9=32 (because player 5 kept marble 23 and removed marble 9, while no other player got any points in this very short example game).
 
-  -->A--->B--
- /    \      \
-C      -->D----->E
- \           /
-  ---->F-----
-  
-Your first goal is to determine the order in which the steps should be completed. If more than one step is ready, choose the step which is first alphabetically. In this example, the steps would be completed as follows:
+Here are a few more examples:
 
-Only C is available, and so it is done first.
-Next, both A and F are available. A is first alphabetically, so it is done next.
-Then, even though F was available earlier, steps B and D are now also available, and B is the first alphabetically of the three.
-After that, only D and F are available. E is not available because only some of its prerequisites are complete. Therefore, D is completed next.
-F is the only choice, so it is done next.
-Finally, E is completed.
-So, in this example, the correct order is CABDFE.
+10 players; last marble is worth 1618 points: high score is 8317
+13 players; last marble is worth 7999 points: high score is 146373
+17 players; last marble is worth 1104 points: high score is 2764
+21 players; last marble is worth 6111 points: high score is 54718
+30 players; last marble is worth 5807 points: high score is 37305
+What is the winning Elf's score?
 
-In what order should the steps in your instructions be completed?
-
-Your puzzle answer was OUGLTKDJVBRMIXSACWYPEQNHZF.
+Your puzzle answer was 422980.
 
 --- Part Two ---
-As you're about to begin construction, four of the Elves offer to help. "The sun will set soon; it'll go faster if we work together." Now, you need to account for multiple people working on steps simultaneously. If multiple steps are available, workers should still begin them in alphabetical order.
+Amused by the speed of your answer, the Elves are curious:
 
-Each step takes 60 seconds plus an amount corresponding to its letter: A=1, B=2, C=3, and so on. So, step A takes 60+1=61 seconds, while step Z takes 60+26=86 seconds. No time is required between steps.
+What would the new winning Elf's score be if the number of the last marble were 100 times larger?
 
-To simplify things for the example, however, suppose you only have help from one Elf (a total of two workers) and that each step takes 60 fewer seconds (so that step A takes 1 second and step Z takes 26 seconds). Then, using the same instructions as above, this is how each second would be spent:
-
-Second   Worker 1   Worker 2   Done
-   0        C          .
-   1        C          .
-   2        C          .
-   3        A          F       C
-   4        B          F       CA
-   5        B          F       CA
-   6        D          F       CAB
-   7        D          F       CAB
-   8        D          F       CAB
-   9        D          .       CABF
-  10        E          .       CABFD
-  11        E          .       CABFD
-  12        E          .       CABFD
-  13        E          .       CABFD
-  14        E          .       CABFD
-  15        .          .       CABFDE
-Each row represents one second of time. The Second column identifies how many seconds have passed as of the beginning of that second. Each worker column shows the step that worker is currently doing (or . if they are idle). The Done column shows completed steps.
-
-Note that the order of the steps has changed; this is because steps now take time to finish and multiple workers can begin multiple steps simultaneously.
-
-In this example, it would take 15 seconds for two workers to complete these steps.
-
-With 5 workers and the 60+ second step durations described above, how long will it take to complete all of the steps?
-
-Your puzzle answer was 929.
+Your puzzle answer was 3552041936.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
