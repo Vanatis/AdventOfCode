@@ -65,6 +65,10 @@ class MineCart {
       this.dy = 0;
     }
   }
+
+  get position() {
+    return `${this.x},${this.y}`;
+  }
 }
 
 function findFirstCollision(input) {
@@ -76,8 +80,8 @@ function findFirstCollision(input) {
 
   const carts = [];
 
-  for (let y = 0; y < tracks.length; y++) {
-    for (let x = 0; x < tracks[y].length; x++) {
+  for (let y = 0; y < tracks.length; ++y) {
+    for (let x = 0; x < tracks[y].length; ++x) {
       if (/[\^v<>]/.test(tracks[y][x])) {
         const marker = tracks[y][x];
         const cart = new MineCart(x, y, marker);
@@ -100,7 +104,7 @@ function findFirstCollision(input) {
       return a.y - b.y;
     });
 
-    for (let i = 0; i < carts.length; i++) {
+    for (let i = 0; i < carts.length; ++i) {
       const cart = carts[i];
       const nextSection = tracks[cart.y + cart.dy][cart.x + cart.dx];
 
@@ -124,10 +128,10 @@ function findLastRemainingCartPosition(input) {
     .filter((line) => line.trim())
     .map((line) => line.padEnd(width, ' ').split(''));
 
-  const carts = [];
+  let carts = [];
 
-  for (let y = 0; y < tracks.length; y++) {
-    for (let x = 0; x < tracks[y].length; x++) {
+  for (let y = 0; y < tracks.length; ++y) {
+    for (let x = 0; x < tracks[y].length; ++x) {
       if (/[\^v<>]/.test(tracks[y][x])) {
         const marker = tracks[y][x];
         const cart = new MineCart(x, y, marker);
@@ -139,45 +143,33 @@ function findLastRemainingCartPosition(input) {
   }
 
   while (carts.length > 1) {
-    const cartPositions = [];
+    const cartsToRemove = [];
 
     //Sort carts
-    carts.sort((a, b) => {
-      if (a.y === b.y) {
-        return a.x - b.x;
-      }
-      return a.y - b.y;
-    });
+    carts.sort((a, b) => {a.y - b.y || a.x - b.x});
 
-    for (let i = 0; i < carts.length; i++) {
+    for (let i = 0; i < carts.length; ++i) {
       const cart = carts[i];
       const nextSection = tracks[cart.y + cart.dy][cart.x + cart.dx];
 
       cart.move(nextSection);
 
-      const cartPosition = `${cart.x},${cart.y}`;
+      const otherCarts = [
+        ...carts.slice(0, i),
+        ...carts.slice(i + 1, carts.length)
+      ];
 
-      if (cartPositions.includes(cartPosition)) {
-        const x = cartPosition.split(",")[0];
-        const y = cartPosition.split(",")[1];
-
-        const crashedCarts = carts.filter(cart => cart.x === parseInt(x) && cart.y === parseInt(y));
-        crashedCarts.map((crashedCart) => {
-          const crashedCartIndex = carts.indexOf(crashedCart);
-          carts.splice(crashedCartIndex, 1);
-        });
+      const otherCart = otherCarts.find((c) => c.position === cart.position);
+      if (otherCart) {
+        cartsToRemove.push(cart);
+        cartsToRemove.push(otherCart);
       }
-
-      cartPositions.push(cartPosition);
     }
+
+    carts = carts.filter((cart) => !cartsToRemove.some(c => c === cart));
   }
 
-  //Move the cart once after the crash
-  carts.map((cart) => {
-    const nextSection = tracks[cart.y + cart.dy][cart.x + cart.dx];
-    cart.move(nextSection);
-  });
-  return carts;
+  return carts[0].position;
 };
 
 question1();
