@@ -23,7 +23,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 - [Day 4: Repose Record](./2018/04&#32-&#32Repose&#32Record/)
 - [Day 5: Alchemical Reduction](./2018/05&#32-&#32Alchemical&#32Reduction/)
 - [Day 6: Chronal Coordinates](./2018/06&#32-&#32Chronal&#32Coordinates/)
-- [Day 7: The Sum of Its Parts](./2018/07&#32-&#32The&#32Sum&#32of&#32Its Parts/)
+- [Day 7: The Sum of Its Parts](./2018/07&#32-&#32The&#32Sum&#32of&#32Its&#32Parts/)
 - [Day 8: Memory Maneuver](./2018/08&#32-&#32Memory&#32Maneuver/)
 - [Day 9: Marble Mania](./2018/09&#32-&#32Marble&#32Mania/)
 - [Day 10: The Stars Align](./2018/10&#32-&#32The&#32Stars&#32Align/)
