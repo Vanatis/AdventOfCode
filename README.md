@@ -17,30 +17,30 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 
 ## 2018 - Days
 
-- [Day 1: Chronal Calibration](2018/01 - Chronal Calibration/)
-- [Day 2: Inventory Management System](2018/02 - Inventory Management System/)
-- [Day 3: No Matter How You Slice It](2018/03 - No Matter How You Slice It/)
-- [Day 4: Repose Record](2018/04 - Repose Record/)
-- [Day 5: Alchemical Reduction](2018/05 - Alchemical Reduction/)
-- [Day 6: Chronal Coordinates](2018/06 - Chronal Coordinates/)
-- [Day 7: The Sum of Its Parts](2018/07 - The Sum of Its Parts/)
-- [Day 8: Memory Maneuver](2018/08 - Memory Maneuver/)
-- [Day 9: Marble Mania](2018/09 - Marble Mania/)
-- [Day 10: The Stars Align](2018/10 - The Stars Align/)
-- [Day 11: Chronal Charge](2018/11 - Chronal Charge/)
-- [Day 12: Subterranean Sustainability](2018/12 - Subterranean Sustainability/)
-- [Day 13: Mine Cart Madness](2018/13 - Mine Cart Madness/)
-- [Day 14: Chocolate Charts](2018/14 - Chocolate Charts/)
-- [Day 15: Beverage Bandits](2018/15 - Beverage Bandits/)
-- [Day 16: Chronal Classification](2018/16 - Chronal Classification/)
-- [Day 17: Reservoir Research](2018/17 - Reservoir Research/)
-- [Day 18: Settlers of The North Pole](2018/18 - Settlers of The North Pole/)
-- [Day 19: Go With The Flow](2018/19 - Go With The Flow/)
-- [Day 20: A Regular Map](2018/20 - A Regular Map/)
+- [Day 1: Chronal Calibration](./2018/01 - Chronal Calibration/)
+- [Day 2: Inventory Management System](./2018/02 - Inventory Management System/)
+- [Day 3: No Matter How You Slice It](./2018/03 - No Matter How You Slice It/)
+- [Day 4: Repose Record](./2018/04 - Repose Record/)
+- [Day 5: Alchemical Reduction](./2018/05 - Alchemical Reduction/)
+- [Day 6: Chronal Coordinates](./2018/06 - Chronal Coordinates/)
+- [Day 7: The Sum of Its Parts](./2018/07 - The Sum of Its Parts/)
+- [Day 8: Memory Maneuver](./2018/08 - Memory Maneuver/)
+- [Day 9: Marble Mania](./2018/09 - Marble Mania/)
+- [Day 10: The Stars Align](./2018/10 - The Stars Align/)
+- [Day 11: Chronal Charge](./2018/11 - Chronal Charge/)
+- [Day 12: Subterranean Sustainability](./2018/12 - Subterranean Sustainability/)
+- [Day 13: Mine Cart Madness](./2018/13 - Mine Cart Madness/)
+- [Day 14: Chocolate Charts](./2018/14 - Chocolate Charts/)
+- [Day 15: Beverage Bandits](./2018/15 - Beverage Bandits/)
+- [Day 16: Chronal Classification](./2018/16 - Chronal Classification/)
+- [Day 17: Reservoir Research](./2018/17 - Reservoir Research/)
+- [Day 18: Settlers of The North Pole](./2018/18 - Settlers of The North Pole/)
+- [Day 19: Go With The Flow](./2018/19 - Go With The Flow/)
+- [Day 20: A Regular Map](./2018/20 - A Regular Map/)
 
 
 ## Previous Years
-- [2017](2017/)
+- [2017](./2017/)
 
 ## Visit
 - http://adventofcode.com/2018
