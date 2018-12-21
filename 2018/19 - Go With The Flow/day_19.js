@@ -80,4 +80,5 @@ function executeOperations(program, ipRegistry, initialState = [0, 0, 0, 0, 0, 0
 
   return state;
 }
+
 question1And2();
