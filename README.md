@@ -40,7 +40,7 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 
 
 ## Previous Years
-- [2017](./2017/)
+- [2017](2017/)
 
 ## Visit
 - http://adventofcode.com/2018
