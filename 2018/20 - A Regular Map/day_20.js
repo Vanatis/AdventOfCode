@@ -1,7 +1,7 @@
 const fs = require('fs');
 const rl = require('readline');
 
-function question1() {
+function Question1And2() {
   const readStream = fs.createReadStream('./day_20_input.txt');
   const lineReader = rl.createInterface(readStream);
 
@@ -97,4 +97,4 @@ function doStep(dx, dy, map, currentNode) {
   return currentNode;
 }
 
-question1();
+question1And2();
