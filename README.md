@@ -37,7 +37,11 @@ Collect stars by solving puzzles. Two puzzles will be made available on each day
 - [Day 18: Settlers of The North Pole](2018/18%20-%20Settlers%20of%20The%20North%20Pole/)
 - [Day 19: Go With The Flow](2018/19%20-%20Go%20With%20The%20Flow/)
 - [Day 20: A Regular Map](2018/20%20-%20A%20Regular%20Map/)
-
+- [Day 21: Chronal Conversion](2018/21%20-%20Chronal%20Conversion/)
+- [Day 22: Mode Maze](2018/22%20-%20Mode%20Maze/)
+- [Day 23: Experimental Emergency Teleportation](2018/23%20-%20Experimental%20Emergency%20Teleportation/)
+- [Day 24: Immume System Simulator 20XX](2018/24%20-%20Immume%20System%20Simulator%2020XX/)
+- [Day 25: Four-Dimensional Adventure](2018/25%20-%20Four-Dimensional%20Adventure/)
 
 ## Previous Years
 - [2017](2017/)
